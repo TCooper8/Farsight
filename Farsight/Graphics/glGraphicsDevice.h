@@ -14,6 +14,6 @@ namespace Farsight
 
 		virtual bool Initialize(int argc, char** argv) override;
 		virtual void DrawBuffer(const VertexBuffer &buffer) override;
-		virtual void Clear(const Color4 &color) override;
+		virtual void Clear() override;
 	};
 };

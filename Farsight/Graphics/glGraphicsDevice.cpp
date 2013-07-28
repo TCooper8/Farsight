@@ -30,7 +30,7 @@ namespace Farsight
 		 glCallList(buffer.GetId());
 	 }
 
-	 void glGraphicsDevice::Clear(const Color4 &color)
+	 void glGraphicsDevice::Clear()
 	 {
 		 glClear(GL_COLOR_BUFFER_BIT);
 	 }

@@ -22,6 +22,11 @@ namespace Farsight
 
 	void SpriteBatch::Draw(const Texture2D &texture, const Vector3 &position)
 	{
+		Draw(texture, position, Vector3::Zero, Vector3::One, 0);
+	}
+
+	void SpriteBatch::Draw(const Texture2D &texture, const Vector3 &position, const Vector3 &origin, const Vector3 &scale, const float rotation)
+	{
 		if (&texture == nullptr)
 			return;
 
@@ -30,6 +35,9 @@ namespace Farsight
 
 		glPushMatrix();
 		glTranslatef(position.x, position.y, position.z);
+		glScalef(scale.x, scale.y, 1);
+		glRotatef(rotation, 0, 0, 1);
+		glTranslatef(-origin.x, -origin.y, -origin.z);
 
 		glBegin(GL_QUADS);
 		
