@@ -40,7 +40,6 @@ namespace Farsight
 		this->width = width;
 		this->height = height;
 		char* bindData = new char[width * height * 4];
-
 		
 		int i = 0;
 		int j = 0;
@@ -48,17 +47,11 @@ namespace Farsight
 		{
 			for (int x = 0; x < width; x++)
 			{
-				//int i = x + y * width;
 				Color4 c (data[i++]);
 				bindData[j++] = c.R;
 				bindData[j++] = c.G;
 				bindData[j++] = c.B;
 				bindData[j++] = c.A;
-
-				//bindData[j++] = 0;
-				//bindData[j++] = 0;
-				//bindData[j++] = 0;
-				//bindData[j++] = 120;
 			}
 		}
 
@@ -76,13 +69,11 @@ namespace Farsight
 			width,
 			height, 
 			0, 
-			GL_RGBA, 
+			GL_RGBA,
 			GL_UNSIGNED_BYTE,
 			bindData);
 
-		delete [] bindData;
-
-		std::cout << "Hello1" << std::endl;
+		//delete [] bindData;
 	}
 
 	uint Texture2D::IndexCounter = 0;

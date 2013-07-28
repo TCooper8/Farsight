@@ -11,13 +11,21 @@ namespace Farsight
 	SpriteBatch::SpriteBatch()
 	{ }
 
-	void SpriteBatch::Begin(const int width, const int height)
+	void SpriteBatch::Begin()
 	{
-		//glPushMatrix();
-		glViewport(0, 0, width, height);
+		const int width = glutGet(GLUT_WINDOW_WIDTH);
+		const int height = glutGet(GLUT_WINDOW_HEIGHT);
+
+		glPushMatrix();
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
+
+		glViewport(0, 0, width, height);
 		gluOrtho2D(0, width, 0, height);
+		glScalef(1, -1, 1);
+
+		glTranslatef(0, -height, 0);
+		glMatrixMode(GL_MODELVIEW);
 	}
 
 	void SpriteBatch::Draw(const Texture2D &texture)
@@ -59,6 +67,6 @@ namespace Farsight
 
 	void SpriteBatch::End()
 	{
-		//glPopMatrix();
+		glPopMatrix();
 	}
 };

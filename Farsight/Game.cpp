@@ -52,7 +52,6 @@ namespace Farsight
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glViewport(0, 0, width, height);
-		gluOrtho2D(0, width, 0, height);
 		glMatrixMode(GL_MODELVIEW);
 	}
 

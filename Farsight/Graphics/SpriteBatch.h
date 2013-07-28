@@ -10,7 +10,7 @@ namespace Farsight
 	public:
 		SpriteBatch();
 
-		void Begin(const int width, const int height);
+		void Begin();
 		void Draw(const Texture2D &texture);
 		void Draw(const Texture2D &texture, const Vector3 &position);
 		void Draw(const Texture2D &texture, const Vector3 &position, const Vector3 &origin, const Vector3 &scale, const float rotation);
