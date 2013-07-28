@@ -1,6 +1,11 @@
 #include <cstring>
 #include "Keyboard.h"
+
+#if defined(WIN32)
 #include <glut.h>
+#elif defined(UNIX)
+#include <GL/glut.h>
+#endif
 
 namespace Farsight
 {
