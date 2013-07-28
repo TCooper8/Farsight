@@ -128,7 +128,6 @@ namespace Farsight
 		if (sstream.str() == "far")
 		{
 			sstream.clear();
-			std::cout << "got it!" << std::endl;
 			return LoadFar(filename);
 		}
 

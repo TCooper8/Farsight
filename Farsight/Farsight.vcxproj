@@ -17,7 +17,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -76,14 +76,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Content.h" />
     <ClInclude Include="Content\ContentManager.h" />
     <ClInclude Include="Content\Filetypes\TGAFile.h" />
     <ClInclude Include="FarSystem.h" />
     <ClInclude Include="FarSystem\TimeSpan.h" />
+    <ClInclude Include="Framework.h" />
     <ClInclude Include="Framework\Color4.h" />
     <ClInclude Include="Framework\Face.h" />
     <ClInclude Include="Framework\Quaternion.h" />
     <ClInclude Include="Framework\Vector3.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\glGraphicsDevice.h" />
     <ClInclude Include="Graphics\GraphicsParams.h" />
@@ -93,6 +97,9 @@
     <ClInclude Include="Graphics\Texture2D.h" />
     <ClInclude Include="Graphics\Vertex.h" />
     <ClInclude Include="Graphics\VertexBuffer.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Input\Keyboard.h" />
+    <ClInclude Include="Input\KeyboardState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Content\ContentManager.cpp" />
@@ -101,12 +108,15 @@
     <ClCompile Include="Framework\Color4.cpp" />
     <ClCompile Include="Framework\Quaternion.cpp" />
     <ClCompile Include="Framework\Vector3.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\glGraphicsDevice.cpp" />
     <ClCompile Include="Graphics\SpriteBatch.cpp" />
     <ClCompile Include="Graphics\Texture2D.cpp" />
     <ClCompile Include="Graphics\Vertex.cpp" />
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="Input\Keyboard.cpp" />
+    <ClCompile Include="Input\KeyboardState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
