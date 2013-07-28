@@ -1,0 +1,53 @@
+#include "Quaternion.h"
+
+namespace Farsight
+{
+	const Quaternion Quaternion::Identity (0, 0, 0, 1);
+
+	Quaternion::Quaternion()
+		: X(0), Y(0), Z(0), W(0)
+	{ }
+
+	Quaternion::Quaternion(const Vector3 &vector, const float w)
+		: X(vector.x), Y(vector.y), Z(vector.z), W(w)
+	{ }
+
+	Quaternion::Quaternion(const float x, const float y, const float z, const float w)
+		: X(x), Y(y), Z(z), W(w)
+	{ }
+
+	Quaternion::Quaternion(const Quaternion &quaternion)
+		: X(quaternion.X), Y(quaternion.Y), Z(quaternion.Z), W(quaternion.W)
+	{ }
+
+	Quaternion Quaternion::Inverse(const Quaternion &q)
+	{
+		return Quaternion(-q.X, -q.Y, -q.Z, q.W);
+	}
+
+	Quaternion Quaternion::operator*(const Vector3 &v) const
+	{
+		return Quaternion(
+			W * v.x + Z * v.y - Y * v.z, 
+			W * v.y + X * v.z - Z * v.x,
+			W * v.z + Y * v.x - X * v.y,
+			-(X * v.x + Y * v.y + Z * v.z));
+	}
+
+	Quaternion Quaternion::operator*(const Quaternion &q) const
+	{
+		return Quaternion(
+			W * q.X + X * q.W + Y * q.Z - Z * q.Y,
+			W * q.Y + Y * q.W + Z * q.X - X * q.Z,
+			W * q.Z + Z * q.W + X * q.Y - Y * q.X,
+			W * q.W - X * q.X - Y * q.Y - Z * q.Z);
+	}
+
+	void Quaternion::operator=(const Quaternion &quaternion)
+	{
+		X = quaternion.X;
+		Y = quaternion.Y;
+		Z = quaternion.Z;
+		W = quaternion.W;
+	}
+};

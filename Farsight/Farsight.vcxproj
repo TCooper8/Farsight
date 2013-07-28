@@ -76,6 +76,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Content\ContentManager.h" />
+    <ClInclude Include="Content\Filetypes\TGAFile.h" />
+    <ClInclude Include="FarSystem.h" />
+    <ClInclude Include="FarSystem\TimeSpan.h" />
+    <ClInclude Include="Framework\Color4.h" />
+    <ClInclude Include="Framework\Face.h" />
+    <ClInclude Include="Framework\Quaternion.h" />
+    <ClInclude Include="Framework\Vector3.h" />
+    <ClInclude Include="Graphics\Camera.h" />
+    <ClInclude Include="Graphics\glGraphicsDevice.h" />
+    <ClInclude Include="Graphics\GraphicsParams.h" />
+    <ClInclude Include="Graphics\IGraphicsDevice.h" />
+    <ClInclude Include="Graphics\Model.h" />
+    <ClInclude Include="Graphics\SpriteBatch.h" />
+    <ClInclude Include="Graphics\Texture2D.h" />
+    <ClInclude Include="Graphics\Vertex.h" />
+    <ClInclude Include="Graphics\VertexBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Content\ContentManager.cpp" />
+    <ClCompile Include="FarSystem\FarSystem.cpp" />
+    <ClCompile Include="FarSystem\TimeSpan.cpp" />
+    <ClCompile Include="Framework\Color4.cpp" />
+    <ClCompile Include="Framework\Quaternion.cpp" />
+    <ClCompile Include="Framework\Vector3.cpp" />
+    <ClCompile Include="Graphics\Camera.cpp" />
+    <ClCompile Include="Graphics\glGraphicsDevice.cpp" />
+    <ClCompile Include="Graphics\SpriteBatch.cpp" />
+    <ClCompile Include="Graphics\Texture2D.cpp" />
+    <ClCompile Include="Graphics\Vertex.cpp" />
+    <ClCompile Include="Graphics\VertexBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
