@@ -124,16 +124,47 @@ namespace Farsight
 			sstream.clear();
 			return LoadTGA(filename);
 		}
-
 		if (sstream.str() == "far")
 		{
 			sstream.clear();
 			return LoadFar(filename);
 		}
+		if (sstream.str() == "png")
+		{
+			sstream.clear();
+			return LoadPNG(filename);
+		}
 
 		FarSystem::RaiseException("Unrecognized file format");
 
 		return nullptr;
+	}
+
+	Texture2D* ContentManager::LoadPNG(const char* filename)
+	{
+		std::stringstream sstream;
+		sstream << "Content\\ImageParser.exe " << filename;
+
+		system(sstream.str().c_str());
+
+		sstream = std::stringstream();
+
+		int i = strlen(filename);
+		while (filename[i] != '.')
+			i--;
+
+		int j = 0;
+		while (j < i)
+		{
+			sstream << filename[j];
+			j++;
+		}
+
+		sstream << ".far";
+
+		std::cout << sstream.str() << std::endl;
+
+		return LoadFar(sstream.str().c_str());
 	}
 
 	Texture2D* ContentManager::LoadFar(const char* filename)
@@ -155,7 +186,6 @@ namespace Farsight
 			{
 				for (int x = 0; x < width; x++)
 				{
-					//int i = x + y * width;
 					int r, g, b, a;
 
 					fin 
@@ -166,7 +196,6 @@ namespace Farsight
 
 					data[i] = Color4(r, g, b, a);
 					i++;
-					//cout <<'(' << r << ", " << g << ", " << b << ", " << a << ')' << endl;
 				}
 			}
 

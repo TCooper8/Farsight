@@ -11,6 +11,7 @@ namespace Farsight
 		static T* Load(const char* filename);
 
 	private:
+		static Texture2D* LoadPNG(const char* filename);
 		static Texture2D* LoadFar(const char* filename);
 		static Texture2D* LoadTGA(const char* filename);
 	};
