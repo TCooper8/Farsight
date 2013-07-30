@@ -9,7 +9,7 @@ namespace Farsight
 	{ }
 
 	Quaternion::Quaternion(const Vector3 &vector, const float w)
-		: X(vector.x), Y(vector.y), Z(vector.z), W(w)
+		: X(vector.X), Y(vector.Y), Z(vector.Z), W(w)
 	{ }
 
 	Quaternion::Quaternion(const float x, const float y, const float z, const float w)
@@ -28,10 +28,10 @@ namespace Farsight
 	Quaternion Quaternion::operator*(const Vector3 &v) const
 	{
 		return Quaternion(
-			W * v.x + Z * v.y - Y * v.z, 
-			W * v.y + X * v.z - Z * v.x,
-			W * v.z + Y * v.x - X * v.y,
-			-(X * v.x + Y * v.y + Z * v.z));
+			W * v.X + Z * v.Y - Y * v.Z, 
+			W * v.Y + X * v.Z - Z * v.X,
+			W * v.Z + Y * v.X - X * v.Y,
+			-(X * v.X + Y * v.Y + Z * v.Z));
 	}
 
 	Quaternion Quaternion::operator*(const Quaternion &q) const

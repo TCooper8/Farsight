@@ -4,13 +4,6 @@
 
 namespace Farsight
 {
-	std::ostream &operator<<(std::ostream &stream, const Vector3 &v)
-	{
-		stream << "<" << v.x << ", " << v.y << ", " << v.z << ">";
-
-		return stream;
-	}
-
 	Camera::Camera(const Vector3 &position, const Vector3 &target, const Vector3 &upDirection)
 		: Position(position), Target(target), UpDirection(upDirection)
 	{ 
@@ -21,13 +14,17 @@ namespace Farsight
 		FarPlane = 100.0f;
 	}
 
+	Camera::Camera(const Camera &camera)
+		: Position(camera.Position), Target(camera.Target), UpDirection(camera.UpDirection),
+		  Speed(camera.Speed), RotationSpeed(camera.RotationSpeed),
+		  FieldOfView(camera.FieldOfView), NearPlane(camera.NearPlane),
+		  FarPlane(camera.FarPlane)
+	{ }
+
 	void Camera::AddForce(const Vector3 &force)
 	{
 		Vector3 rotatedVector = Vector3::Transform(force, Rotation);
 		Position += rotatedVector * Speed;
-
-		fprintf(stdout, "<%f, %f, %f>", rotatedVector.x, rotatedVector.y, rotatedVector.z);
-		//PushView();
 	}
 
 	void Camera::PushPerspective(const float fieldOfView, const int viewportWidth, const int viewportHeight) const
@@ -50,8 +47,8 @@ namespace Farsight
 	{
 		glLoadIdentity();
 		gluLookAt(
-			Position.x, Position.y, Position.z,
-			Target.x, Target.y, Target.z,
-			UpDirection.x, UpDirection.y, UpDirection.z);
+			Position.X, Position.Y, Position.Z,
+			Target.X, Target.Y, Target.Z,
+			UpDirection.X, UpDirection.Y, UpDirection.Z);
 	}
 };

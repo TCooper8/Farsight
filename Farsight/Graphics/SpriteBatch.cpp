@@ -47,10 +47,10 @@ namespace Farsight
 		glBindTexture(GL_TEXTURE_2D, texture.GetId());
 
 		glPushMatrix();
-		glTranslatef(position.x, position.y, position.z);
-		glScalef(scale.x, scale.y, 1);
+		glTranslatef(position.X, position.Y, position.Z);
+		glScalef(scale.X, scale.Y, 1);
 		glRotatef(rotation, 0, 0, 1);
-		glTranslatef(-origin.x, -origin.y, -origin.z);
+		glTranslatef(-origin.X, -origin.Y, -origin.Z);
 
 		glBegin(GL_QUADS);
 		

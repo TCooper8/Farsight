@@ -73,8 +73,6 @@ namespace Farsight
 			GL_UNSIGNED_BYTE,
 			bindData);
 
-		//delete [] bindData;
+		delete [] bindData;
 	}
-
-	uint Texture2D::IndexCounter = 0;
 };

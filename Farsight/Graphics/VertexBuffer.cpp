@@ -49,9 +49,9 @@ namespace Farsight
 		for (uint i = 0; i < count; i++) 
 		{
 			glVertex3f(
-				vertices[i].x,
-				vertices[i].y,
-				vertices[i].z);
+				vertices[i].X,
+				vertices[i].Y,
+				vertices[i].Z);
 		}
 		
 		glEnd();
@@ -80,9 +80,9 @@ namespace Farsight
 				vertices[i].Color.B,
 				vertices[i].Color.A);
 			glVertex3f(
-				vertices[i].Position.x,
-				vertices[i].Position.y,
-				vertices[i].Position.z);
+				vertices[i].Position.X,
+				vertices[i].Position.Y,
+				vertices[i].Position.Z);
 		}
 		glEnd();
 		glEndList();

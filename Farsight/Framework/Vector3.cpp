@@ -16,28 +16,28 @@ namespace Farsight
 	const Vector3 Vector3::Zero(0, 0, 0);
 
 	Vector3::Vector3()
-		: x(0), y(0), z(0)
+		: X(0), Y(0), Z(0)
 	{ }
 
 	Vector3::Vector3(const Vector3 &vector)
-		: x(vector.x), y(vector.y), z(vector.z)
+		: X(vector.X), Y(vector.Y), Z(vector.Z)
 	{ }
 
 	Vector3::Vector3(const float value)
-		: x(value), y(value), z(value)
+		: X(value), Y(value), Z(value)
 	{ }
 
 	Vector3::Vector3(const float x, const float y)
-		: x(x), y(y), z(0)
+		: X(x), Y(y), Z(0)
 	{ }
 
 	Vector3::Vector3(const float x, const float y, const float z)
-		: x(x), y(y), z(z)
+		: X(x), Y(y), Z(z)
 	{ }
 
 	const float Vector3::LengthSquared() const
 	{
-		return powf(x, 2) + powf(y, 2) + powf(z, 2);
+		return powf(X, 2) + powf(Y, 2) + powf(Z, 2);
 	}
 
 	const float Vector3::Length() const
@@ -49,16 +49,16 @@ namespace Farsight
 	{
 		const float length = this->Length();
 
-		x /= length;
-		y /= length;
-		z /= length;
+		X /= length;
+		Y /= length;
+		Z /= length;
 	}
 
 	void Vector3::Sqrt()
 	{
-		x = sqrtf(x);
-		y = sqrtf(y);
-		z = sqrtf(z);
+		X = sqrtf(X);
+		Y = sqrtf(Y);
+		Z = sqrtf(Z);
 	}
 
 	const float Vector3::Distance(const Vector3 &a, const Vector3 &b)
@@ -68,12 +68,12 @@ namespace Farsight
 
 	const float Vector3::DistanceSquared(const Vector3 &a, const Vector3 &b)
 	{
-		return powf(b.x - a.x, 2) + powf(b.y - a.y, 2) + powf(b.z - a.z, 2);
+		return powf(b.X - a.X, 2) + powf(b.Y - a.Y, 2) + powf(b.Z - a.Z, 2);
 	}
 
 	const float Vector3::Dot(const Vector3 &a, const Vector3 &b)
 	{
-		return a.x * b.x + a.y + b.y + a.z + b.z;
+		return a.X * b.X + a.Y + b.Y + a.Z + b.Z;
 	}
 
 	Vector3 Vector3::Transform(const Vector3 &vector, const Quaternion &quaternion)
@@ -87,62 +87,62 @@ namespace Farsight
 
 	Vector3 Vector3::operator*(const Vector3 &v) const
 	{
-		return Vector3(x * v.x, y * v.y, z * v.z);
+		return Vector3(X * v.X, Y * v.Y, Z * v.Z);
 	}
 
 	void Vector3::operator*=(const Vector3 &v)
 	{
-		x *= v.x;
-		y *= v.y;
-		z *= v.z;
+		X *= v.X;
+		Y *= v.Y;
+		Z *= v.Z;
 	}
 
 	Vector3 Vector3::operator+(const Vector3 &v) const
 	{
-		return Vector3(x + v.x, y + v.y, z + v.z);
+		return Vector3(X + v.X, Y + v.Y, Z + v.Z);
 	}
 
 	void Vector3::operator+=(const Vector3 &v)
 	{
-		x += v.x;
-		y += v.y;
-		z += v.z;
+		X += v.X;
+		Y += v.Y;
+		Z += v.Z;
 	}
 
 	Vector3 Vector3::operator-() const
 	{
-		return Vector3(-x, -y, -z);
+		return Vector3(-X, -Y, -Z);
 	}
 
 	Vector3 Vector3::operator-(const Vector3 &v) const
 	{
-		return Vector3(x - v.x, y - v.y, z - v.z);
+		return Vector3(X - v.X, Y - v.Y, Z - v.Z);
 	}
 
 	void Vector3::operator-=(const Vector3 &v)
 	{
-		x -= v.x;
-		y -= v.y;
-		z -= v.z;
+		X -= v.X;
+		Y -= v.Y;
+		Z -= v.Z;
 	}
 
 	Vector3 Vector3::operator/(const Vector3 &v) const
 	{
-		return Vector3(x / v.x, y / v.y, z / v.z);
+		return Vector3(X / v.X, Y / v.Y, Z / v.Z);
 	}
 
 	void Vector3::operator/=(const Vector3 &v) 
 	{
-		x /= v.x;
-		y /= v.y;
-		z /= v.z;
+		X /= v.X;
+		Y /= v.Y;
+		Z /= v.Z;
 	}
 
 	Vector3 &Vector3::operator=(const Vector3 &v)
 	{
-		x = v.x;
-		y = v.y;
-		z = v.z;
+		X = v.X;
+		Y = v.Y;
+		Z = v.Z;
 
 		return *this;
 	}
