@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../FarSystem.h"
-
 namespace Farsight
 {
 	class TimeSpan
@@ -57,10 +55,5 @@ namespace Farsight
 		double GetTotalSeconds() const;
 
 		#pragma endregion
-	};
-
-	namespace FarSystem
-	{
-		TimeSpan GetSystemTime();
 	};
 };

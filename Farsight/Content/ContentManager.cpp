@@ -13,9 +13,11 @@
 
 #include "ContentManager.h"
 #include "Filetypes\TGAFile.h"
+#include "Filetypes\PNGFile.h"
 #include "../Framework/Face.h"
 #include "../Graphics/VertexBuffer.h"
 #include "../Graphics/Model.h"
+#include "../ExternalDependencies/Soil/SOIL.h"
 
 namespace Farsight
 {
@@ -100,48 +102,22 @@ namespace Farsight
 	template<>
 	Texture2D* ContentManager::Load(const char* filename)
 	{
-		const int len = std::strlen(filename);
-		std::stringstream sstream;
+		SOIL_load_OGL_texture(filename, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, 0);
+		#if _DEBUG
+		FarSystem::Report("SOIL loading texture : ");
+		FarSystem::Report(filename);
+		FarSystem::Report(SOIL_last_result());
+		#endif
 
-		// Find extension beginning.
-		int i = 0;
-		while (filename[i] != '.')
-			i++;
-		i++;
 
-		// Stream rest of filename into stringstream.
-
-		while (i < len)
-		{
-			sstream << (char)filename[i];
-			i++;
-		}
-
-		// Determine file extension.
-
-		if (sstream.str() == "tga")
-		{
-			sstream.clear();
-			return LoadTGA(filename);
-		}
-		if (sstream.str() == "far")
-		{
-			sstream.clear();
-			return LoadFar(filename);
-		}
-		if (sstream.str() == "png")
-		{
-			sstream.clear();
-			return LoadPNG(filename);
-		}
-
-		FarSystem::RaiseException("Unrecognized file format");
 
 		return nullptr;
 	}
 
 	Texture2D* ContentManager::LoadPNG(const char* filename)
 	{
+		return nullptr;
+		/*
 		std::stringstream sstream;
 		sstream << "Content\\ImageParser.exe " << filename;
 
@@ -164,7 +140,7 @@ namespace Farsight
 
 		std::cout << sstream.str() << std::endl;
 
-		return LoadFar(sstream.str().c_str());
+		return LoadFar(sstream.str().c_str());*/
 	}
 
 	Texture2D* ContentManager::LoadFar(const char* filename)

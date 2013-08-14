@@ -20,10 +20,12 @@ namespace Farsight
 	typedef unsigned long ulong;
 
 
-	namespace FarSystem
+	class FarSystem
 	{
+	public:
 		static void Report(const char* info);
 		static void ReportError(int e, const char* info);
 		static void RaiseException(const char* info) { }
+		static TimeSpan GetSystemTime();
 	};
 };

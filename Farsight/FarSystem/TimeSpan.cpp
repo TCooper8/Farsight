@@ -1,7 +1,5 @@
 #include <iostream>
 #include <climits>
-#include <chrono>
-#include <ctime>
 #include "TimeSpan.h"
 
 namespace Farsight
@@ -112,17 +110,4 @@ namespace Farsight
 	}
 
 	#pragma endregion
-
-	namespace FarSystem
-	{
-		const std::chrono::high_resolution_clock::time_point InitialTime = std::chrono::high_resolution_clock::now();
-
-		TimeSpan GetSystemTime()
-		{
-			auto tf = std::chrono::high_resolution_clock::now();
-			auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(tf - InitialTime).count();
-
-			return TimeSpan(duration);
-		}
-	};
 };

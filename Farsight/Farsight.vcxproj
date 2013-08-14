@@ -20,7 +20,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -78,7 +78,14 @@
   <ItemGroup>
     <ClInclude Include="Content.h" />
     <ClInclude Include="Content\ContentManager.h" />
+    <ClInclude Include="Content\Filetypes\PNGFile.h" />
     <ClInclude Include="Content\Filetypes\TGAFile.h" />
+    <ClInclude Include="ExternalDependencies\Soil\image_DXT.h" />
+    <ClInclude Include="ExternalDependencies\Soil\image_helper.h" />
+    <ClInclude Include="ExternalDependencies\Soil\SOIL.h" />
+    <ClInclude Include="ExternalDependencies\Soil\stbi_DDS_aug.h" />
+    <ClInclude Include="ExternalDependencies\Soil\stbi_DDS_aug_c.h" />
+    <ClInclude Include="ExternalDependencies\Soil\stb_image_aug.h" />
     <ClInclude Include="FarSystem.h" />
     <ClInclude Include="FarSystem\TimeSpan.h" />
     <ClInclude Include="Framework.h" />
@@ -103,6 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Content\ContentManager.cpp" />
+    <ClCompile Include="ExternalDependencies\Soil\image_DXT.c" />
+    <ClCompile Include="ExternalDependencies\Soil\image_helper.c" />
+    <ClCompile Include="ExternalDependencies\Soil\SOIL.c" />
+    <ClCompile Include="ExternalDependencies\Soil\stb_image_aug.c" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Content\Filetypes\PNGFile.cpp" />
     <ClCompile Include="FarSystem\FarSystem.cpp" />
     <ClCompile Include="FarSystem\TimeSpan.cpp" />
     <ClCompile Include="Framework\Color4.cpp" />
@@ -117,6 +130,9 @@
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="Input\Keyboard.cpp" />
     <ClCompile Include="Input\KeyboardState.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="liveTile.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
