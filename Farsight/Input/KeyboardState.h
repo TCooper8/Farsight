@@ -17,6 +17,8 @@ namespace Farsight
 		bool IsKeyUp(const uchar key) const;
 
 		void operator=(const KeyboardState &state);
+		bool operator==(const KeyboardState& state) const;
+		bool operator!=(const KeyboardState& state) const;
 
 	private:
 		void SetKeys(const uchar keys[256]);

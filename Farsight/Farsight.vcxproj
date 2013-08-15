@@ -20,10 +20,10 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -73,13 +73,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Content.h" />
     <ClInclude Include="Content\ContentManager.h" />
-    <ClInclude Include="Content\Filetypes\PNGFile.h" />
-    <ClInclude Include="Content\Filetypes\TGAFile.h" />
     <ClInclude Include="ExternalDependencies\Soil\image_DXT.h" />
     <ClInclude Include="ExternalDependencies\Soil\image_helper.h" />
     <ClInclude Include="ExternalDependencies\Soil\SOIL.h" />
@@ -87,11 +86,15 @@
     <ClInclude Include="ExternalDependencies\Soil\stbi_DDS_aug_c.h" />
     <ClInclude Include="ExternalDependencies\Soil\stb_image_aug.h" />
     <ClInclude Include="FarSystem.h" />
+    <ClInclude Include="FarSystem\FarMath.h" />
+    <ClInclude Include="FarSystem\pch.h" />
     <ClInclude Include="FarSystem\TimeSpan.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Framework\Color4.h" />
     <ClInclude Include="Framework\Face.h" />
+    <ClInclude Include="Framework\GameWindow.h" />
     <ClInclude Include="Framework\Quaternion.h" />
+    <ClInclude Include="Framework\Rectangle.h" />
     <ClInclude Include="Framework\Vector3.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
@@ -107,6 +110,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Input\Keyboard.h" />
     <ClInclude Include="Input\KeyboardState.h" />
+    <ClInclude Include="Input\Keys.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Content\ContentManager.cpp" />
@@ -114,12 +118,13 @@
     <ClCompile Include="ExternalDependencies\Soil\image_helper.c" />
     <ClCompile Include="ExternalDependencies\Soil\SOIL.c" />
     <ClCompile Include="ExternalDependencies\Soil\stb_image_aug.c" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Content\Filetypes\PNGFile.cpp" />
+    <ClCompile Include="FarSystem\FarMath.cpp" />
     <ClCompile Include="FarSystem\FarSystem.cpp" />
     <ClCompile Include="FarSystem\TimeSpan.cpp" />
     <ClCompile Include="Framework\Color4.cpp" />
+    <ClCompile Include="Framework\GameWindow.cpp" />
     <ClCompile Include="Framework\Quaternion.cpp" />
+    <ClCompile Include="Framework\Rectangle.cpp" />
     <ClCompile Include="Framework\Vector3.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
@@ -130,9 +135,6 @@
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="Input\Keyboard.cpp" />
     <ClCompile Include="Input\KeyboardState.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="liveTile.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

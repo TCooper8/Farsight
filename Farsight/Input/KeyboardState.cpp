@@ -1,19 +1,12 @@
+#include <cstring>
+#include <Windows.h>
 #include "KeyboardState.h"
-
-#if defined(WIN32)
-#include <glut.h>
-#elif defined(UNIX)
-#include <GL/glut.h>
-#endif
 
 namespace Farsight
 {
 	KeyboardState::KeyboardState()
 	{
-		for (int i = 0; i < 256; i++)
-		{
-			keys[i] = GLUT_UP;
-		}
+		memset(keys, 0, sizeof(keys));
 	}
 
 	KeyboardState::KeyboardState(const uchar keys[256])
@@ -28,24 +21,31 @@ namespace Farsight
 
 	bool KeyboardState::IsKeyDown(const uchar key) const
 	{
-		return (keys[key] == GLUT_DOWN);
+		return keys[key] != 0;
 	}
 
 	bool KeyboardState::IsKeyUp(const uchar key) const
 	{
-		return (keys[key] == GLUT_UP);
+		return keys[key] == 0;
 	}
 
 	void KeyboardState::SetKeys(const uchar keys[256])
 	{
-		for (int i = 0; i < 256; i++)
-		{
-			this->keys[i] = keys[i];
-		}
+		memcpy(this->keys, keys, sizeof(this->keys));
 	}
 
 	void KeyboardState::operator=(const KeyboardState &state)
 	{
 		SetKeys(state.keys);
+	}
+
+	bool KeyboardState::operator==(const KeyboardState& state) const
+	{
+		return memcmp(this->keys, state.keys, sizeof(this->keys)) == 0;
+	}
+
+	bool KeyboardState::operator!=(const KeyboardState& state) const
+	{
+		return !(*this == state);
 	}
 };

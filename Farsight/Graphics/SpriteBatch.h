@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IGraphicsDevice.h"
 #include "Vertex.h"
 #include "Texture2D.h"
 
@@ -9,9 +10,12 @@ namespace Farsight
 		Remark : Use a sprite batch to draw a 2D bitmap directly to the screen. */
 	class SpriteBatch
 	{
+	protected:
+		IGraphicsDevice* graphicsDevice;
+
 	public:
 		// Initializes a new instance of SpriteBatch.
-		SpriteBatch();
+		SpriteBatch(IGraphicsDevice& graphicsDevice);
 
 		// Begins a sprite batch operation.
 		void Begin();
@@ -23,5 +27,9 @@ namespace Farsight
 		void Draw(const Texture2D &texture, const Vector3 &position, const Vector3 &origin, const Vector3 &scale, const float rotation);
 		// Flushes the batch and restores the graphics device state to how it was before Begin was called.
 		void End();
+
+	private:
+		SpriteBatch();
+		SpriteBatch(const SpriteBatch& spriteBatch);
 	};
 };

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "FarSystem/TimeSpan.h"
+#include "FarSystem\TimeSpan.h"
+#include "FarSystem\FarMath.h"
 
 namespace Farsight
 {

@@ -1,7 +1,9 @@
+#include <Windows.h>
 #include "SpriteBatch.h"
 
 #if defined(WIN32)
-#include <glut.h>
+#include <gl/GL.h>
+#include <gl/GLU.h>
 #elif defined(UNIX)
 #include <GL/glut.h>
 #endif
@@ -11,20 +13,31 @@ namespace Farsight
 	SpriteBatch::SpriteBatch()
 	{ }
 
+	SpriteBatch::SpriteBatch(IGraphicsDevice& graphicsDevice)
+	{
+		this->graphicsDevice = &graphicsDevice;
+	}
+
+	SpriteBatch::SpriteBatch(const SpriteBatch& spriteBatch)
+	{ }
+
 	void SpriteBatch::Begin()
 	{
-		const int width = glutGet(GLUT_WINDOW_WIDTH);
-		const int height = glutGet(GLUT_WINDOW_HEIGHT);
+		int params[4]; 
+
+
+		glGetIntegerv(GL_SCISSOR_BOX, params);
+		
 
 		glPushMatrix();
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		glViewport(0, 0, width, height);
-		gluOrtho2D(0, width, 0, height);
+		glViewport(0, 0, params[2], params[3]);
+		gluOrtho2D(0, params[2], 0, params[3]);
 		glScalef(1, -1, 1);
 
-		glTranslatef(0, -height, 0);
+		glTranslatef(0, -params[3], 0);
 		glMatrixMode(GL_MODELVIEW);
 	}
 

@@ -1,15 +1,16 @@
+#include <iostream>
+#include <Windows.h>
 #include "Game.h"
 
 #if defined(WIN32)
-#include <glut.h>
+#include <gl/GL.h>
+#include <gl/GLU.h>
 #elif defined(UNIX)
 #include <GL/glut.h>
 #endif
 
 namespace Farsight
 {
-	Game* Game::activeGame = nullptr;
-
 	int Game::Window::Width = 512;
 	int Game::Window::Height = 512;
 
@@ -19,45 +20,71 @@ namespace Farsight
 		  targetElapsedTime(16)
 	{ }
 
-	bool Game::Initialize(int argc, char** argv)
+	Game::~Game()
 	{
-		activeGame = this;
+		Dispose();
+	}
+
+	void Game::Dispose()
+	{
+		if (content)
+			delete content;
+		if (graphicsDevice)
+			delete graphicsDevice;
+	}
+
+	void Game::Exit()
+	{
+		isRunning = false;
+	}
+
+	bool Game::Initialize()
+	{
+		content = new ContentManager();
 
 		graphicsDevice = new glGraphicsDevice();
-		graphicsDevice->Initialize(argc, argv);
-
-		glutDisplayFunc(DisplayCallback);
-		glutReshapeFunc(ReshapeCallback);
-		glutTimerFunc(targetElapsedTime, TimerCallback, 1);
-
-		Keyboard::BindToGlut();
+		graphicsDevice->Initialize();
 
 		glClearColor(1, 1, 1, 1);
 
 		return LoadContent();
 	}
 
-	bool Game::LoadContent()
-	{
-		return true;
-	}
-
-	void Game::Reshape(const int width, const int height)
-	{
-		Window::Width = width;
-		Window::Height = height;
-
-		const float ratio = width * 1.0f / height;
-
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glViewport(0, 0, width, height);
-		glMatrixMode(GL_MODELVIEW);
-	}
-
 	void Game::Run()
 	{
-		glutMainLoop();
+		MSG msg;
+
+		int totalTime = 0;
+
+		isRunning = true;
+
+		while (isRunning)
+		{
+			// Check event loop here.
+			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			{
+				if (msg.message == WM_QUIT)
+					isRunning = false;
+				else
+				{
+					TranslateMessage(&msg);
+					DispatchMessage(&msg);
+				}
+			}
+			else
+			{
+				TimeSpan timeInitial = FarSystem::GetSystemTime();
+
+				Tick();
+
+				TimeSpan timeFinal = FarSystem::GetSystemTime();
+				const int waitTime = targetElapsedTime - (timeFinal - timeInitial).GetMilliseconds();
+				std::cout << waitTime << std::endl;
+
+				if (waitTime > 0)
+					Sleep(waitTime);
+			}
+		}
 	}
 
 	void Game::Tick()
@@ -68,28 +95,17 @@ namespace Farsight
 		Draw(gameTime);
 	}
 
+	bool Game::LoadContent()
+	{
+		return true;
+	}
+
 	void Game::Update(const TimeSpan &timeSpan)
 	{
 	}
 
 	void Game::Draw(const TimeSpan &timeSpan)
 	{
-		glutSwapBuffers();
-	}
-
-	void Game::DisplayCallback(void)
-	{
-		activeGame->Tick();
-	}
-
-	void Game::ReshapeCallback(const int width, const int height)
-	{
-		activeGame->Reshape(width, height);
-	}
-
-	void Game::TimerCallback(int elapsedTime)
-	{
-		glutPostRedisplay();
-		glutTimerFunc(activeGame->targetElapsedTime, TimerCallback, 1);
+		graphicsDevice->Present();
 	}
 };

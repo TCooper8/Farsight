@@ -10,10 +10,8 @@ namespace Farsight
 {
 	class Game
 	{
-	private:
-		static Game* activeGame;
-
 	protected:
+		bool isRunning;
 		ContentManager* content;
 		IGraphicsDevice* graphicsDevice;
 
@@ -26,18 +24,23 @@ namespace Farsight
 		int targetElapsedTime;
 
 		Game();
-
-		virtual bool Initialize(int argc, char** argv);
-		virtual bool LoadContent();
-		virtual void Reshape(const int width, const int height);
+		~Game();
+		
+		virtual void Dispose();
+		// Exits the game.
+		void Exit();
+		// Called after the Game and GraphicsDevice are created, but before LoadContent.
+		virtual bool Initialize();
+		/* Call this method to initialize the game, begin running the game loop,
+		and start processing events for the game. */
 		void Run();
+		// Updates the game's clock and calls Update and Draw.
 		virtual void Tick();
-		virtual void Update(const TimeSpan &timeSpan);
-		virtual void Draw(const TimeSpan &timeSpan);
 
-	private:
-		static void DisplayCallback(void);
-		static void ReshapeCallback(const int width, const int height);
-		static void TimerCallback(int elapsedTime);
+	protected:
+		// Called when graphics resources need to be loaded.
+		virtual bool LoadContent();
+		virtual void Draw(const TimeSpan &timeSpan);
+		virtual void Update(const TimeSpan &timeSpan);
 	};
 };

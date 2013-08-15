@@ -4,15 +4,21 @@
 
 namespace Farsight
 {
-	class ContentManager
+	class ContentManager sealed
 	{
+	private:
+		char* rootDirectory;
+
 	public:
+		ContentManager();
+
 		template<typename T>
-		static T* Load(const char* filename);
+		T* Load(const char* filename);
+
+		const char* GetRootDirectory() const;
+		void SetRootDirectory(const char* rootDirectory);
 
 	private:
-		static Texture2D* LoadPNG(const char* filename);
-		static Texture2D* LoadFar(const char* filename);
-		static Texture2D* LoadTGA(const char* filename);
+		ContentManager(const ContentManager& contentManager);
 	};
 };

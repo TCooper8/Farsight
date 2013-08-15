@@ -21,6 +21,10 @@ namespace Farsight
 		/* Creates an uninitialized Texture2D resource.
 			Remark : Use ContentManager.Load to initialize this resource. */
 		Texture2D();
+		// Creates an initialized Texture2D resource from an existing texture id.
+		Texture2D(const uint id);
+		// Creates an initialized Texture2D resource from an existing Texture2D.
+		Texture2D(const Texture2D& texture);
 
 		// Gets the current resource id, assigned by the graphics device.
 		uint GetId() const;

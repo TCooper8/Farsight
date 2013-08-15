@@ -15,6 +15,18 @@ namespace Farsight
 		: id(0)
 	{ }
 
+	Texture2D::Texture2D(const uint id)
+		: id(id)
+	{ 
+		glBindTexture(GL_TEXTURE_2D, id);
+		glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
+		glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
+	}
+
+	Texture2D::Texture2D(const Texture2D& texture)
+		: id(texture.id), width(texture.width), height(texture.height)
+	{ }
+
 	uint Texture2D::GetId() const
 	{
 		return id;

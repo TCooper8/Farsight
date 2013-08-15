@@ -12,8 +12,6 @@
 #endif
 
 #include "ContentManager.h"
-#include "Filetypes\TGAFile.h"
-#include "Filetypes\PNGFile.h"
 #include "../Framework/Face.h"
 #include "../Graphics/VertexBuffer.h"
 #include "../Graphics/Model.h"
@@ -21,13 +19,23 @@
 
 namespace Farsight
 {
+	ContentManager::ContentManager()
+		: rootDirectory("")
+	{ }
+
+	ContentManager::ContentManager(const ContentManager& ContentManager)
+	{ }
+
 	#pragma region ContentManager::Load definitions
 
 	template<>
 	VertexBuffer* ContentManager::Load(const char* filename)
 	{
+		std::string filepath = rootDirectory;
+		filepath.append(filename);
+
 		std::string key;
-		std::ifstream fin (filename, std::ios::in | std::ios::binary);
+		std::ifstream fin (filepath.c_str(), std::ios::in | std::ios::binary);
 
 		std::vector<Vector3> vertices;
 
@@ -68,13 +76,16 @@ namespace Farsight
 	template<>
 	Model* ContentManager::Load(const char* filename)
 	{
+		std::string filepath = rootDirectory;
+		filepath.append(filename);
+
 		std::vector<std::string> coords;
 		std::vector<Vector3> vertices;
 		std::vector<Face> faces;
 		std::vector<Vector3> normals;
 
 		std::string key;
-		std::ifstream fin (filename);
+		std::ifstream fin (filepath.c_str());
 
 		if (fin.is_open())
 		{
@@ -102,118 +113,60 @@ namespace Farsight
 	template<>
 	Texture2D* ContentManager::Load(const char* filename)
 	{
-		SOIL_load_OGL_texture(filename, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, 0);
+		std::string filepath = rootDirectory;
+		filepath.append(filename);
+
+		uint id = SOIL_load_OGL_texture(
+			filepath.c_str(), 
+			SOIL_LOAD_AUTO, 
+			SOIL_CREATE_NEW_ID,
+			SOIL_FLAG_POWER_OF_TWO |
+			SOIL_FLAG_MIPMAPS |
+			SOIL_FLAG_DDS_LOAD_DIRECT);
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, id);
+
 		#if _DEBUG
 		FarSystem::Report("SOIL loading texture : ");
-		FarSystem::Report(filename);
+		FarSystem::Report(filepath.c_str());
 		FarSystem::Report(SOIL_last_result());
 		#endif
 
-
-
-		return nullptr;
-	}
-
-	Texture2D* ContentManager::LoadPNG(const char* filename)
-	{
-		return nullptr;
-		/*
-		std::stringstream sstream;
-		sstream << "Content\\ImageParser.exe " << filename;
-
-		system(sstream.str().c_str());
-
-		sstream = std::stringstream();
-
-		int i = strlen(filename);
-		while (filename[i] != '.')
-			i--;
-
-		int j = 0;
-		while (j < i)
+		if (id <= 0)
 		{
-			sstream << filename[j];
-			j++;
+			#if _DEBUG
+			FarSystem::ReportError(0, "Texture loading failed.");
+			FarSystem::ReportError(0, SOIL_last_result());
+			#endif
+
+			return nullptr;
 		}
 
-		sstream << ".far";
+		#if _DEBUG
+		FarSystem::Report("Texture loading success.");
+		#endif
 
-		std::cout << sstream.str() << std::endl;
+		Texture2D* texture = new Texture2D(id);
 
-		return LoadFar(sstream.str().c_str());*/
-	}
-
-	Texture2D* ContentManager::LoadFar(const char* filename)
-	{
-		std::fstream fin (filename);
-
-		if (fin.is_open())
-		{
-			// Pull in .far header.
-
-			int width, height;
-			fin >> width >> height;
-
-			Color4* data = new Color4[width * height];
-
-			using namespace std;
-			int i = 0;
-			for (int y = 0; y < height; y++)
-			{
-				for (int x = 0; x < width; x++)
-				{
-					int r, g, b, a;
-
-					fin 
-						>> r
-						>> g
-						>> b
-						>> a;
-
-					data[i] = Color4(r, g, b, a);
-					i++;
-				}
-			}
-
-			Texture2D* texture = new Texture2D();
-			texture->SetData(data, width, height);
-			
-			return texture;
-		}
-
-		return nullptr;
-	}
-
-	Texture2D* ContentManager::LoadTGA(const char* filename)
-	{
-		std::fstream fin (filename, std::ios::in | std::ios::binary);
-		TGAFileHeader header;
-
-		char* data;
-
-		if (fin.is_open())
-		{
-			// Pull in file header data.
-			fin.read((char*)&header, sizeof(TGAFileHeader));
-
-			// Read pixel data.
-			const int imageSize = header.width * header.height * header.bpp;
-			data = (char*)malloc(imageSize);
-			fin.read((char*)data, imageSize);
-
-			int internalFormat = 4;
-
-			Texture2D* texture = new Texture2D();
-
-			delete [] data;
-			fin.close();
-
-			return texture;
-		}
-		fin.close();
-
-		return nullptr;
+		return texture;
 	}
 
 	#pragma endregion
+
+	const char* ContentManager::GetRootDirectory() const
+	{
+		return rootDirectory;
+	}
+
+	void ContentManager::SetRootDirectory(const char* rootDirectory)
+	{
+		if (strlen(this->rootDirectory) != 0)
+			delete [] this->rootDirectory;
+
+		const int length = strlen(rootDirectory);
+		this->rootDirectory = new char[length];
+
+		strcpy(this->rootDirectory, rootDirectory);
+	}
 };
