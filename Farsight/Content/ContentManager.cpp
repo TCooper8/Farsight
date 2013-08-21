@@ -19,6 +19,8 @@
 
 namespace Farsight
 {
+	const char* ContentManager::directorySeperator = "/";
+
 	ContentManager::ContentManager()
 		: rootDirectory("")
 	{ }
@@ -161,12 +163,13 @@ namespace Farsight
 
 	void ContentManager::SetRootDirectory(const char* rootDirectory)
 	{
-		if (strlen(this->rootDirectory) != 0)
+		if (strlen(this->rootDirectory) > 0)
 			delete [] this->rootDirectory;
 
 		const int length = strlen(rootDirectory);
-		this->rootDirectory = new char[length];
+		this->rootDirectory = new char[length+1];
 
 		strcpy(this->rootDirectory, rootDirectory);
+		strncat(this->rootDirectory, directorySeperator, strlen(directorySeperator));
 	}
 };

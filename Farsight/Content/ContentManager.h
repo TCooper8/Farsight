@@ -8,6 +8,7 @@ namespace Farsight
 	{
 	private:
 		char* rootDirectory;
+		static const char* directorySeperator;
 
 	public:
 		ContentManager();

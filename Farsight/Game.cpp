@@ -18,7 +18,9 @@ namespace Farsight
 		: graphicsDevice(nullptr), 
 		  content(nullptr),
 		  targetElapsedTime(16)
-	{ }
+	{
+		content = new ContentManager();
+	}
 
 	Game::~Game()
 	{
@@ -40,8 +42,6 @@ namespace Farsight
 
 	bool Game::Initialize()
 	{
-		content = new ContentManager();
-
 		graphicsDevice = new glGraphicsDevice();
 		graphicsDevice->Initialize();
 
@@ -79,7 +79,6 @@ namespace Farsight
 
 				TimeSpan timeFinal = FarSystem::GetSystemTime();
 				const int waitTime = targetElapsedTime - (timeFinal - timeInitial).GetMilliseconds();
-				std::cout << waitTime << std::endl;
 
 				if (waitTime > 0)
 					Sleep(waitTime);
