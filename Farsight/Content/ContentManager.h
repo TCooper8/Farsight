@@ -1,14 +1,19 @@
 #pragma once
 
+#include <unordered_map>
 #include "../Graphics/Texture2D.h"
 
 namespace Farsight
 {
 	class ContentManager sealed
 	{
+	public:
+		typedef std::unordered_map<const char*, int> TextureDictionary;
+
 	private:
 		char* rootDirectory;
 		static const char* directorySeperator;
+		TextureDictionary TextureTable;
 
 	public:
 		ContentManager();

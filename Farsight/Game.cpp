@@ -43,6 +43,9 @@ namespace Farsight
 	bool Game::Initialize()
 	{
 		graphicsDevice = new glGraphicsDevice();
+		graphicsDevice->Params.BackBufferWidth = Window::Width;
+		graphicsDevice->Params.BackBufferHeight = Window::Height;
+
 		graphicsDevice->Initialize();
 
 		glClearColor(1, 1, 1, 1);
@@ -80,8 +83,8 @@ namespace Farsight
 				TimeSpan timeFinal = FarSystem::GetSystemTime();
 				const int waitTime = targetElapsedTime - (timeFinal - timeInitial).GetMilliseconds();
 
-				if (waitTime > 0)
-					Sleep(waitTime);
+				//if (waitTime > 0)
+					//Sleep(waitTime - 1);
 			}
 		}
 	}

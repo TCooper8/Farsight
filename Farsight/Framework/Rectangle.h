@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 
 namespace Farsight
 {
@@ -12,7 +12,7 @@ namespace Farsight
 		int Y;
 
 		// Represents a Rectangle with all of its values set to zero.
-		static Rectangle Empty;
+		static const Rectangle Empty;
 
 		// Initializes a new instance of an empty rectangle.
 		Rectangle();

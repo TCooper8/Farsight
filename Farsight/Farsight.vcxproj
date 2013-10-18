@@ -77,6 +77,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components.h" />
+    <ClInclude Include="Components\Body.h" />
+    <ClInclude Include="Components\GameScreen.h" />
+    <ClInclude Include="Components\Sprite.h" />
     <ClInclude Include="Content.h" />
     <ClInclude Include="Content\ContentManager.h" />
     <ClInclude Include="ExternalDependencies\Soil\image_DXT.h" />
@@ -87,7 +91,6 @@
     <ClInclude Include="ExternalDependencies\Soil\stb_image_aug.h" />
     <ClInclude Include="FarSystem.h" />
     <ClInclude Include="FarSystem\FarMath.h" />
-    <ClInclude Include="FarSystem\pch.h" />
     <ClInclude Include="FarSystem\TimeSpan.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Framework\Color4.h" />
@@ -111,6 +114,8 @@
     <ClInclude Include="Input\Keyboard.h" />
     <ClInclude Include="Input\KeyboardState.h" />
     <ClInclude Include="Input\Keys.h" />
+    <ClInclude Include="Input\Mouse.h" />
+    <ClInclude Include="Input\MouseState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Content\ContentManager.cpp" />
@@ -135,6 +140,10 @@
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="Input\Keyboard.cpp" />
     <ClCompile Include="Input\KeyboardState.cpp" />
+    <ClCompile Include="Input\Mouse.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Input\MouseState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

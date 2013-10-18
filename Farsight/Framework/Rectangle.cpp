@@ -2,6 +2,8 @@
 
 namespace Farsight
 {
+	const Rectangle Rectangle::Empty (0, 0, 0, 0);
+
 	Rectangle::Rectangle()
 		: Height(0),
 		  Width(0),

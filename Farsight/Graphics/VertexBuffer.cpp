@@ -57,6 +57,7 @@ namespace Farsight
 		glEnd();
 		glEndList();
 
+		glCallList(id);
 	}
 
 	template<typename Vertex>

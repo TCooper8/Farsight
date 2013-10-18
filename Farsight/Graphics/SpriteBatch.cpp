@@ -25,9 +25,10 @@ namespace Farsight
 	{
 		int params[4]; 
 
-
 		glGetIntegerv(GL_SCISSOR_BOX, params);
-		
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
 
 		glPushMatrix();
 		glMatrixMode(GL_PROJECTION);
@@ -48,10 +49,37 @@ namespace Farsight
 
 	void SpriteBatch::Draw(const Texture2D &texture, const Vector3 &position)
 	{
-		Draw(texture, position, Vector3::Zero, Vector3::One, 0);
+		Draw(texture, Rectangle::Empty, position, Vector3::Zero, Vector3::One, 0.0f);
 	}
 
-	void SpriteBatch::Draw(const Texture2D &texture, const Vector3 &position, const Vector3 &origin, const Vector3 &scale, const float rotation)
+	void SpriteBatch::Draw(const Texture2D& texture, const Rectangle& source)
+	{
+		if (&texture == nullptr)
+			return;
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, texture.GetId());
+
+		glPushMatrix();
+		glTranslatef(source.X, source.Y, 0);
+
+		glBegin(GL_QUADS);
+
+		if (&source != nullptr)
+		{
+			glNormal3d(0, 0, 1);
+			glTexCoord2f(0, 0); glVertex2i(0, 0);
+			glTexCoord2f(1, 0); glVertex2i(source.Width, 0);
+			glTexCoord2f(1, 1); glVertex2i(source.Width, source.Height);
+			glTexCoord2f(0, 1); glVertex2i(0, source.Height);
+		}
+
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+		glPopMatrix();
+	}
+
+	void SpriteBatch::Draw(const Texture2D &texture, const Rectangle& source, const Vector3 &position, const Vector3 &origin, const Vector3 &scale, const float rotation)
 	{
 		if (&texture == nullptr)
 			return;
@@ -66,12 +94,15 @@ namespace Farsight
 		glTranslatef(-origin.X, -origin.Y, -origin.Z);
 
 		glBegin(GL_QUADS);
-		
-		glNormal3d(0, 0, 1);
-		glTexCoord2f(0, 0); glVertex2i(0, 0);
-		glTexCoord2f(1, 0); glVertex2i(texture.GetWidth(), 0);
-		glTexCoord2f(1, 1); glVertex2i(texture.GetWidth(), texture.GetHeight());
-		glTexCoord2f(0, 1); glVertex2i(0, texture.GetHeight());
+
+		if (&source != nullptr)
+		{
+			glNormal3d(0, 0, 1);
+			glTexCoord2f(0, 0); glVertex2i(0, 0);
+			glTexCoord2f(1, 0); glVertex2i(texture.GetWidth(), 0);
+			glTexCoord2f(1, 1); glVertex2i(texture.GetWidth(), texture.GetHeight());
+			glTexCoord2f(0, 1); glVertex2i(0, texture.GetHeight());
+		}
 
 		glEnd();
 		glDisable(GL_TEXTURE_2D);

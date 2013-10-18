@@ -19,7 +19,7 @@
 
 namespace Farsight
 {
-	const char* ContentManager::directorySeperator = "/";
+	const char* ContentManager::directorySeperator = "/"; 
 
 	ContentManager::ContentManager()
 		: rootDirectory("")
@@ -117,6 +117,14 @@ namespace Farsight
 	{
 		std::string filepath = rootDirectory;
 		filepath.append(filename);
+		
+		// Check to see if the Texture has already been loaded.
+		{
+			TextureDictionary::iterator itter = TextureTable.find(filename);
+
+			if (itter != TextureTable.end())
+				return new Texture2D(itter->second);
+		};
 
 		uint id = SOIL_load_OGL_texture(
 			filepath.c_str(), 
@@ -150,6 +158,8 @@ namespace Farsight
 		#endif
 
 		Texture2D* texture = new Texture2D(id);
+
+		TextureTable[filename] = id;
 
 		return texture;
 	}

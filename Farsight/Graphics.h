@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Graphics\Camera.h"
 #include "Graphics\glGraphicsDevice.h"
 #include "Graphics\GraphicsParams.h"
