@@ -76,6 +76,12 @@ namespace Farsight
 		return a.X * b.X + a.Y + b.Y + a.Z + b.Z;
 	}
 
+	Vector3 Vector3::Normalize(const Vector3& v)
+	{
+		const float length = v.Length();
+		return v / length;
+	}
+
 	Vector3 Vector3::Transform(const Vector3 &vector, const Quaternion &quaternion)
 	{
 		Quaternion tQ = (quaternion * vector) * Quaternion::Inverse(quaternion);

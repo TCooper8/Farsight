@@ -79,12 +79,14 @@ namespace Farsight
 				TimeSpan timeInitial = FarSystem::GetSystemTime();
 
 				Tick();
-
+				/*
 				TimeSpan timeFinal = FarSystem::GetSystemTime();
-				const int waitTime = targetElapsedTime - (timeFinal - timeInitial).GetMilliseconds();
+				int waitTime = targetElapsedTime - (timeFinal - timeInitial).GetMilliseconds();
 
-				//if (waitTime > 0)
-					//Sleep(waitTime - 1);
+				while (waitTime > 0) {
+					TimeSpan timeFinal = FarSystem::GetSystemTime();
+					waitTime = targetElapsedTime - (timeFinal - timeInitial).GetMilliseconds();
+				}*/
 			}
 		}
 	}

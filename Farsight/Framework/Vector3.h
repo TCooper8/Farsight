@@ -62,6 +62,7 @@ namespace Farsight
 		static const float DistanceSquared(const Vector3 &a, const Vector3 &b);
 		// Calculates the dot product of two vectors.
 		static const float Dot(const Vector3 &a, const Vector3 &b);
+		static Vector3 Normalize(const Vector3& value);
 		// Transforms a Vector3 by a specified Quaternion rotation.
 		static Vector3 Transform(const Vector3 &vector, const Quaternion &quaternion);
 

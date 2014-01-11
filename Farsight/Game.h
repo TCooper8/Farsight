@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdio.h>
 #include "FarSystem.h"
 #include "Framework.h"
 #include "Graphics.h"

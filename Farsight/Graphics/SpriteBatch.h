@@ -15,6 +15,7 @@ namespace Farsight
 		IGraphicsDevice* graphicsDevice;
 
 	public:
+		SpriteBatch();
 		// Initializes a new instance of SpriteBatch.
 		SpriteBatch(IGraphicsDevice& graphicsDevice);
 
@@ -32,7 +33,6 @@ namespace Farsight
 		void End();
 
 	private:
-		SpriteBatch();
 		SpriteBatch(const SpriteBatch& spriteBatch);
 	};
 };
